@@ -31,6 +31,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "mainpage.apps.MainpageConfig", # added 
+    "clinical.apps.ClinicalConfig", # added
+    "users.apps.UsersConfig",      # added
+    "crispy_forms",                 # added
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -121,3 +125,5 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CRISPY_TEMPLACE_PACK = 'bootstrap4'

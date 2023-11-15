@@ -1,0 +1,22 @@
+{% extends "mainpage/base.html" %}
+
+{% block content %}
+    {% for task in tasks %}
+        <h1> {{ task.title }} </h1>
+        <p> Task name {{ task.name }} </p>
+        <p> {{ task.content }} </p>
+    {% endfor %}
+{% endblock content %}
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mainpage</title>
+</head>
+<body>
+    <h1>This is main page.</h1>
+</body>
+</html> -->
