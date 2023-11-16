@@ -1,6 +1,6 @@
 from django.shortcuts   import render
 from django.http        import HttpResponse
-
+from .forms             import surgery_data_form
 # Create your views here.
 
 test_form_format = {
@@ -9,6 +9,10 @@ test_form_format = {
     "Surgery type",
     "Issues observed"
 }
+
+def surgery_form_page(request):
+    form = surgery_data_form()
+    return render(request, 'form/surgery_data_from.html', {'forms' : form})
 
 def form_page(request):
     #return HttpResponse('<h1>Form page</h1>')
