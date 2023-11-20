@@ -1,0 +1,17 @@
+{% extends "form/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">  
+        <form method="POST">
+            <h4>Edit Hospitals</h4>
+            {% csrf_token %}<!-- csrf token for safety -->
+            <br>
+            {{ hospital_form|crispy }}
+            <br>
+            <input type="submit" value="Submit" >
+        </form>
+
+        
+
+    </div>
+{% endblock content %}
