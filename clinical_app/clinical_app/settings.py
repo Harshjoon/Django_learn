@@ -27,14 +27,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
-    "form.apps.FormConfig",     # added
-    "users.apps.UsersConfig",   # added
-    "crispy_forms",             # added
-    "crispy_bootstrap4",        # added
+    "form.apps.FormConfig",                 # added
+    "users.apps.UsersConfig",               # added
+    "dashboard.apps.DashboardConfig",       # added
+    "data_editor.apps.DataEditorConfig",    # added
+    "crispy_forms",                         # added
+    "crispy_bootstrap4",                    # added
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

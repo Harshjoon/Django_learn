@@ -9,4 +9,7 @@ urlpatterns = [
     path("forms/", views.forms_page, name="form-form"),
     path("editforms/", views.edit_page, name="form-edit"),
     path("", views.home_page, name="form-home"),
+
+    #path("forms/<patient_id>/", views.forms_page, name="form-form"),
+    #path("forms/<str>/", views.forms_page, name
 ]

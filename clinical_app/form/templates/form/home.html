@@ -1,14 +1,42 @@
 {% extends "form/base.html" %}
 {% block content %}
+
     <div class="content-section">
         <h1>The is home page</h1>
     </div>
 
-    <div>
+    <div  class="content-section">
         <a class="nav-item nav-link" href="{% url 'form-form' %}">Add surgery data</a>
     </div>
 
-    <div>
-        <a class="nav-item nav-link" href="{% url 'form-edit' %}">Edit Surgery data</a>
+    <!-- <div class="content-section"> -->
+        <!-- <div>
+            <h5>Enter patient ID</h5>
+            <input type="text" value="" name="patient_id_input">
+            <a class="nav-item nav-link" href="{% url 'form-edit' %}">Edit Surgery data</a>
+        </div> -->
+
+        {% if request.user.is_superuser %}
+        
+        <div class="content-section">
+            <a class="nav-item nav-link" href="{% url 'dataeditor-home' %}">Edit Form format variables</a>
+        </div>
+
+        <div class="content-section">
+            <a class="nav-item nav-link" href="{% url 'dashboard-home' %}">Show dashboard</a>
+        </div>
+
+        {% endif %}
+    <!-- </div> -->
+
+    <div class="content-section">
+        <h5>Edit surgery data</h5>
+        <form method="POST">
+            {% csrf_token %}<!-- csrf token for safety -->
+            <label for="patient_id">Enter Patient ID</label>
+            <input type="text" id="patient_id" name="patient_id">
+            <input type="submit" value="Submit" >
+        </form>
     </div>
+
 {% endblock content %}
