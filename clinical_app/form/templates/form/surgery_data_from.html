@@ -1,8 +1,0 @@
-{% extends "form/base.html" %}
-{% load crispy_forms_tags %}
-{% block content %}
-    <form method="POST">
-        {% csrf_token %}<!-- csrf token for safety -->
-        {{ forms|crispy }}
-    </form>
-{% endblock content %}
