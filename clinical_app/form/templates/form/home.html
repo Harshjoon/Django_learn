@@ -1,12 +1,17 @@
 {% extends "form/base.html" %}
 {% block content %}
 
-    <div class="content-section">
-        <h1>The is home page</h1>
-    </div>
+    <!-- <div class="content-section"> -->
+        <h1>This is home page</h1>
+    <!-- </div> -->
 
+    <br>
+    <br>
+        
     <div  class="content-section">
-        <a class="nav-item nav-link" href="{% url 'form-form' %}">Add surgery data</a>
+        <font size="6px">
+            <a class="nav-item nav-link" href="{% url 'form-form' %}">Add surgery data</a>
+        </font>
     </div>
 
     <!-- <div class="content-section"> -->
@@ -19,24 +24,42 @@
         {% if request.user.is_superuser %}
         
         <div class="content-section">
-            <a class="nav-item nav-link" href="{% url 'dataeditor-home' %}">Edit Form format variables</a>
+            <font size="6px">
+                <a class="nav-item nav-link" href="{% url 'dataeditor-home' %}">Edit Form format variables</a>
+            </font>
         </div>
 
         <div class="content-section">
-            <a class="nav-item nav-link" href="{% url 'dashboard-home' %}">Show dashboard</a>
+            <font size="6px">
+                <a class="nav-item nav-link" href="{% url 'dashboard-home' %}">Show dashboard  </a>
+            </font>
         </div>
 
         {% endif %}
     <!-- </div> -->
 
     <div class="content-section">
-        <h5>Edit surgery data</h5>
-        <form method="POST">
+        <h2> &nbsp; Edit surgery data </h2>
+        <br>
+        <form method="POST" id="patient_id" name="patient_id">
             {% csrf_token %}<!-- csrf token for safety -->
-            <label for="patient_id">Enter Patient ID</label>
+            <label for="patient_id">&nbsp;&nbsp;&nbsp; Enter Patient ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
             <input type="text" id="patient_id" name="patient_id">
             <input type="submit" value="Submit" >
         </form>
     </div>
+
+
+    <div class="content-section">
+        <h4>  &nbsp; Report a Bug</h4>
+        <br>
+        <form method="POST" id="bug_report" name="bug_report">
+            {% csrf_token %}<!-- csrf token for safety -->
+            <label for="bug_report"> &nbsp;&nbsp;&nbsp; </label>
+            <input type="text" id="bug_report" name="bug_report">
+            <input type="submit" value="Submit" >
+        </form>
+    </div>
+
 
 {% endblock content %}

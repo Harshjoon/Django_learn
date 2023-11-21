@@ -5,6 +5,11 @@ from .form_choices      import *
 from django.contrib.postgres.fields import ArrayField
 from django.utils.translation import gettext_lazy as _
 
+
+class BugReport(models.Model):
+    bug_text               = models.TextField()#null=True,blank=True)
+    author                 = models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank=True)
+
 #blank=True
 class Hospitals(models.Model):
     name                   = models.CharField(max_length=100)
@@ -82,20 +87,6 @@ class Post(models.Model):
     cart_undock_start_time          = models.IntegerField(null=True,blank=True)
     cart_undock_end_time            = models.IntegerField(null=True,blank=True)
 
-    # instrument_test                 = models.ManyToManyField(
-    #                                             #'form.Instruments',
-    #                                             Instruments,
-    #                                             related_name='instruments'
-    #                                         )
-
-    # instrument_test_2               = ArrayField(
-    #                                         ArrayField(
-    #                                             models.CharField(max_length=10, blank=True),
-    #                                             size=8,
-    #                                         ),
-    #                                         size=8,
-    #                                     )
-
     instrument_used_1               = models.ForeignKey(Instruments, on_delete=models.PROTECT, null=True,blank=True,related_name='instrument1')
     instrument_1_id                 = models.IntegerField(null=True,blank=True)
     instrument_used_2               = models.ForeignKey(Instruments, on_delete=models.PROTECT, null=True,blank=True,related_name='instrument2')
@@ -129,6 +120,8 @@ class Post(models.Model):
     surgical_steps                  = models.TextField(null=True,blank=True)
 
     total_blood_loss                = models.IntegerField(null=True,blank=True)
+
+    additional_remark               = models.TextField(null=True,blank=True)
 
     # def __str__(self):
     #     return self.patient_name

@@ -1,7 +1,7 @@
 from django.shortcuts       import render
 from django.views.generic   import ListView
 from django.http            import HttpResponse
-from .models                import Post
+from .models                import Post, BugReport
 from .forms                 import clinical_form
 from .functions             import set_models, set_forms
 from django.contrib.auth.decorators     import login_required
@@ -51,7 +51,7 @@ def forms_page(request):#, patien_id=None):
             'forms': clinical_form(instance=post.first())#form_data
         }
 
-        print(post.first().instrument_test)
+        #print(post.first().instrument_test)
 
         return render(request, 'form/form.html', form_context)
 
@@ -64,18 +64,34 @@ def forms_page(request):#, patien_id=None):
 def home_page(request):
     #return HttpResponse('<h1>Form page</h1>')
     if request.method == "POST":
-        patient_id = request.POST['patient_id']
-        print(patient_id)
-        from form.models import Post
-        #post = Post.objects.get(patient_id=patient_id)
-        post        = Post.objects.all().filter( patient_id=patient_id )
-        if len(post) == 0:
-            messages.warning(request, "Patient ID does not exits.")
-        else:
-            base_url            = reverse('form-form')
-            query_string        = urlencode({'patient_id': patient_id})
-            url                 = '{}?{}'.format(base_url, query_string)
-            return redirect(url)        
+
+        if request.POST.get("bug_report") != None:
+            bug_report = request.POST['bug_report']
+            if bug_report == "":
+                messages.warning(request, "Bug report cannot be empty.")
+                return redirect("form-home")
+
+            print("----------------",bug_report, " type" ,type(bug_report))
+            bug_model = BugReport(bug_text=bug_report, author=request.user)
+            bug_model.save()
+            messages.success(request, f'Bug Reported')
+            return redirect("form-home")
+        
+        if request.POST.get("patient_id") != None:
+            patient_id = request.POST['patient_id']
+            #print("-------------", request.POST['bug_report'])
+            print(patient_id)
+            from form.models import Post
+            #post = Post.objects.get(patient_id=patient_id)
+            post        = Post.objects.all().filter( patient_id=patient_id )
+            if len(post) == 0:
+                messages.warning(request, "Patient ID does not exits.")
+            else:
+                base_url            = reverse('form-form')
+                query_string        = urlencode({'patient_id': patient_id})
+                url                 = '{}?{}'.format(base_url, query_string)
+                return redirect(url)        
+
     return render(request, 'form/home.html')
 
 def about_page(request):
