@@ -3,71 +3,72 @@ from django.utils       import timezone
 from django.contrib.auth.models     import User
 from .form_choices      import *
 from django.contrib.postgres.fields import ArrayField
+from django.utils.translation import gettext_lazy as _
 
 #blank=True
 class Hospitals(models.Model):
-    hospital_name                   = models.CharField(max_length=100)
+    name                   = models.CharField(max_length=100)
     def __str__(self):
-        return self.hospital_name
+        return self.name
 
 class Diagnosis(models.Model):
-    diagnosis_name                  = models.CharField(max_length=100)
+    name                  = models.CharField(max_length=100)
     def __str__(self):
-        return self.diagnosis_name
+        return self.name
     
 class SurgicalProcedure(models.Model):
-    surgical_procedure              = models.CharField(max_length=100)
+    name                  = models.CharField(max_length=100)
     def __str__(self):
-        return self.surgical_procedure
+        return self.name
 
 class Instruments(models.Model):
-    instrument_name                 = models.CharField(max_length=100)
+    name                  = models.CharField(max_length=100)
     def __str__(self):
-        return self.instrument_name
+        return self.name
+
+class Instruments_list(models.Model):
+    #name                    = models.CharField(max_length=100)
+    choices                 = models.ManyToManyField(
+                                        #'form.Instruments',
+                                        Instruments,
+                                        #related_name='instruments'
+                                    )
+    # def __str__(self):
+    #     return self.name
 
 class Post(models.Model):
-    hospital_name                   = models.ForeignKey(Hospitals,on_delete=models.PROTECT,null=True,blank=True)
+    hospital_name                   = models.ForeignKey(Hospitals,on_delete=models.PROTECT)#,null=True,blank=True)
 
-
-    patient_id                      = models.CharField(max_length=100,null=True,blank=True)
-    patient_name                    = models.CharField(max_length=100,null=True,blank=True)
+    patient_id                      = models.CharField(max_length=100)#,null=True,blank=True)
+    patient_name                    = models.CharField(max_length=100)#,null=True,blank=True)
     gender                          = models.CharField(
                                         max_length=1,
-                                        choices=GENDER_CHOICES,null=True,blank=True
+                                        choices=GENDER_CHOICES#,null=True,blank=True
                                         )
-    age                             = models.IntegerField(null=True,blank=True)
+    age                             = models.IntegerField()#null=True,blank=True)
     height                          = models.IntegerField(null=True,blank=True)
     weight                          = models.IntegerField(null=True,blank=True)
 
     author                          = models.ForeignKey(User, on_delete=models.PROTECT)
-
-    # diagnosis                       = models.CharField(
-    #                                     max_length=3,
-    #                                     choices=DIAGNOSIS_CHOICES,null=True,blank=True
-    #                                     )
     
-    diagnosis                       = models.ForeignKey(Diagnosis,on_delete=models.PROTECT,null=True,blank=True)
+    diagnosis                       = models.ForeignKey(Diagnosis,on_delete=models.PROTECT)#,null=True,blank=True)
     
-    case_no                         = models.IntegerField(null=True,blank=True)
+    case_no                         = models.IntegerField()#null=True,blank=True)
     date_of_admission               = models.DateTimeField(null=True,blank=True)
-    date_of_surgery                 = models.DateTimeField(null=True,blank=True)
-    # surgical_procedure              = models.CharField(
-    #                                     max_length=3,
-    #                                     choices=SURGICAL_PROCEDURE_CHOICES,null=True,blank=True
-    #                                     )
-    surgical_procedure              = models.ForeignKey(SurgicalProcedure, on_delete=models.PROTECT, null=True,blank=True)
+    date_of_surgery                 = models.DateTimeField()#null=True,blank=True)
+    surgical_procedure              = models.ForeignKey(SurgicalProcedure, on_delete=models.PROTECT)#, null=True,blank=True)
 
     surgeon_name_1                  = models.CharField(max_length=100,null=True,blank=True)
     surgeon_name_2                  = models.CharField(max_length=100,null=True,blank=True)
 
     assistant_surgeon_name_1        = models.CharField(max_length=100,null=True,blank=True)
     assistant_surgeon_name_2        = models.CharField(max_length=100,null=True,blank=True)
-    assistant_surgeon_name_3        = models.CharField(max_length=100,null=True,blank=True)
+    #assistant_surgeon_name_3        = models.CharField(max_length=100,null=True,blank=True)
 
     patient_in_time                 = models.TimeField(null=True,blank=True)
     patient_out_time                = models.TimeField(null=True,blank=True)
-    system_on_time                  = models.TimeField(null=True,blank=True)
-    system_off_time                 = models.TimeField(null=True,blank=True)
+    system_on_time                  = models.TimeField()#null=True,blank=True)
+    system_off_time                 = models.TimeField()#null=True,blank=True)
     draping_start_time              = models.TimeField(null=True,blank=True)
     draping_end_time                = models.TimeField(null=True,blank=True)
     patient_incision_time           = models.TimeField(null=True,blank=True)
@@ -81,51 +82,30 @@ class Post(models.Model):
     cart_undock_start_time          = models.IntegerField(null=True,blank=True)
     cart_undock_end_time            = models.IntegerField(null=True,blank=True)
 
-    #instrument_used_temp            = models.ForeignKey(Instruments, on_delete=models.PROTECT, null=True,blank=True)
-    #instrument_used_temp_1          = models.ForeignKey(Instruments, on_delete=models.PROTECT, null=True,blank=True)
-
-    # instrument_test                 = ArrayField(
-    #                                     models.ForeignKey(Instruments, on_delete=models.PROTECT, null=True,blank=True),
-    #                                         size=10   
+    # instrument_test                 = models.ManyToManyField(
+    #                                             #'form.Instruments',
+    #                                             Instruments,
+    #                                             related_name='instruments'
     #                                         )
 
-    instrument_test                 = models.ManyToManyField(
-                                                'form.Instruments',
-                                                related_name='instruments'
-                                            )
-    
-    # instrument_test                 = ArrayField(
-    #                                         models.ManyToManyField(
-    #                                             'form.Instruments'
+    # instrument_test_2               = ArrayField(
+    #                                         ArrayField(
+    #                                             models.CharField(max_length=10, blank=True),
+    #                                             size=8,
     #                                         ),
-    #                                         size=10                                                   
+    #                                         size=8,
     #                                     )
 
-    #instrument_used_2               = models.ForeignKey(Instruments, on_delete=models.PROTECT, null=True,blank=True)
-    #instrument_used_3               = models.ForeignKey(Instruments, on_delete=models.PROTECT, null=True,blank=True)
-    #instrument_used_4               = models.ForeignKey(Instruments, on_delete=models.PROTECT, null=True,blank=True)
-    #instrument_used_5               = models.ForeignKey(Instruments, on_delete=models.PROTECT, null=True,blank=True)
-
-    instrument_used_1               = models.CharField(
-                                        max_length=3,
-                                        choices=INSTRUMENT_CHOICES,null=True,blank=True
-                                    )
-    instrument_used_2               = models.CharField(
-                                        max_length=3,
-                                        choices=INSTRUMENT_CHOICES,null=True,blank=True
-                                    )
-    instrument_used_3               = models.CharField(
-                                        max_length=3,
-                                        choices=INSTRUMENT_CHOICES,null=True,blank=True
-                                    )
-    instrument_used_4               = models.CharField(
-                                        max_length=3,
-                                        choices=INSTRUMENT_CHOICES,null=True,blank=True
-                                    )
-    instrument_used_5               = models.CharField(
-                                        max_length=3,
-                                        choices=INSTRUMENT_CHOICES,null=True,blank=True
-                                    )
+    instrument_used_1               = models.ForeignKey(Instruments, on_delete=models.PROTECT, null=True,blank=True,related_name='instrument1')
+    instrument_1_id                 = models.IntegerField(null=True,blank=True)
+    instrument_used_2               = models.ForeignKey(Instruments, on_delete=models.PROTECT, null=True,blank=True,related_name='instrument2')
+    instrument_2_id                 = models.IntegerField(null=True,blank=True)
+    instrument_used_3               = models.ForeignKey(Instruments, on_delete=models.PROTECT, null=True,blank=True,related_name='instrument3')
+    instrument_3_id                 = models.IntegerField(null=True,blank=True)
+    instrument_used_4               = models.ForeignKey(Instruments, on_delete=models.PROTECT, null=True,blank=True,related_name='instrument4')
+    instrument_4_id                 = models.IntegerField(null=True,blank=True)
+    instrument_used_5               = models.ForeignKey(Instruments, on_delete=models.PROTECT, null=True,blank=True,related_name='instrument5')
+    instrument_5_id                 = models.IntegerField(null=True,blank=True)
 
     cart_issue                      = models.CharField(
                                         max_length=3,
@@ -145,16 +125,13 @@ class Post(models.Model):
 
     post_discharge_complications    = models.CharField(max_length=100,null=True,blank=True)
 
-    surgical_steps                  = models.CharField(max_length=200,null=True,blank=True)
+    #surgical_steps                  = models.CharField(max_length=200,null=True,blank=True)
+    surgical_steps                  = models.TextField(null=True,blank=True)
 
     total_blood_loss                = models.IntegerField(null=True,blank=True)
 
     # def __str__(self):
     #     return self.patient_name
-
-
-
-
 
 
 # class Post(models.Model):

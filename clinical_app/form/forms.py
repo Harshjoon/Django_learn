@@ -1,7 +1,104 @@
 from django         import forms
 from django.forms   import ModelForm
-from .models        import Post
+from .models        import Post, Instruments, Instruments_list
 from .form_choices  import *
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+class TimeInput(forms.TimeInput):
+    input_type = 'time'
+
+class clinical_form(ModelForm):
+    class Meta:
+        model       = Post
+        fields      = [
+            'hospital_name',
+            'patient_id',
+            'patient_name',
+            'gender',
+            'age',
+            'height',
+            'weight',
+            'diagnosis',
+            'case_no',
+            'date_of_admission',
+            'date_of_surgery',
+            'surgical_procedure',
+            'surgeon_name_1',
+            'surgeon_name_2',
+            'assistant_surgeon_name_1',
+            'assistant_surgeon_name_2',
+            #'assistant_surgeon_name_3',
+            'patient_in_time',
+            'patient_out_time',
+            'system_on_time',
+            'system_off_time',
+            'draping_start_time',
+            'draping_end_time',
+            'patient_incision_time',
+            'patient_skin_closure_time',
+            'port_placement_start_time',
+            'cart_pos_and_doc_start_timem',
+            'cart_pos_and_doc_end_time',
+            'console_start_time',
+            'console_end_time',
+            'console_interruption_time',
+            'cart_undock_start_time',
+            'cart_undock_end_time',
+            'instrument_used_1',
+            'instrument_1_id',
+            'instrument_used_2',
+            'instrument_2_id',
+            'instrument_used_3',
+            'instrument_3_id',
+            'instrument_used_4',
+            'instrument_4_id',
+            'instrument_used_5',
+            'instrument_5_id',
+            'cart_issue',
+            'device_issue',
+            'device_patient_complications',
+            'date_of_discharge',
+            'length_of_stay',
+            'readmission',  
+            'post_discharge_complications',  
+            'surgical_steps',   
+            'total_blood_loss', 
+            # FOR TESTING
+            #'instrument_test'          
+        ]
+
+        widgets = {
+            # Date input
+            'date_of_admission' : DateInput(),
+            'date_of_surgery'   : DateInput(),
+            'date_of_discharge' : DateInput(),
+            # Time input
+            'patient_in_time'               : TimeInput(),
+            'patient_out_time'              : TimeInput(),
+            'system_on_time'                : TimeInput(),
+            'system_off_time'               : TimeInput(),
+            'draping_start_time'            : TimeInput(),
+            'draping_end_time'              : TimeInput(),
+            'patient_incision_time'         : TimeInput(),
+            'patient_skin_closure_time'     : TimeInput(),
+            'port_placement_start_time'     : TimeInput(),
+            'cart_pos_and_doc_start_timem'  : TimeInput(),
+            'cart_pos_and_doc_end_time'     : TimeInput(),
+            'console_start_time'            : TimeInput(),
+            'console_end_time'              : TimeInput(),
+            'console_interruption_time'     : TimeInput(),
+            'cart_undock_start_time'        : TimeInput(),
+            'cart_undock_end_time'          : TimeInput(),
+        }
+
+    # instruments_form = forms.ModelMultipleChoiceField(
+    #                     queryset=Instruments_list.objects.all(),
+    #                     #queryset=Instruments.objects.all(),
+    #                     to_field_name="name")
+    
+
 
 # class clinical_form(forms.Form):
 
@@ -102,58 +199,3 @@ from .form_choices  import *
 
 
 
-class clinical_form(ModelForm):
-    class Meta:
-        model       = Post
-        fields      = [
-            'hospital_name',
-            'patient_id',
-            'patient_name',
-            'gender',
-            'age',
-            'height',
-            'weight',
-            'diagnosis',
-            'case_no',
-            'date_of_admission',
-            'date_of_surgery',
-            'surgical_procedure',
-            'surgeon_name_1',
-            'surgeon_name_2',
-            'assistant_surgeon_name_1',
-            'assistant_surgeon_name_2',
-            'assistant_surgeon_name_3',
-            'patient_in_time',
-            'patient_out_time',
-            'system_on_time',
-            'system_off_time',
-            'draping_start_time',
-            'draping_end_time',
-            'patient_incision_time',
-            'patient_skin_closure_time',
-            'port_placement_start_time',
-            'cart_pos_and_doc_start_timem',
-            'cart_pos_and_doc_end_time',
-            'console_start_time',
-            'console_end_time',
-            'console_interruption_time',
-            'cart_undock_start_time',
-            'cart_undock_end_time',
-            'instrument_used_1',
-            'instrument_used_2',
-            'instrument_used_3',
-            'instrument_used_4',
-            'instrument_used_5',
-            'cart_issue',
-            'device_issue',
-            'device_patient_complications',
-            'date_of_discharge',
-            'length_of_stay',
-            'readmission',  
-            'post_discharge_complications',  
-            'surgical_steps',   
-            'total_blood_loss',  
-
-            # FOR TESTING
-            'instrument_test'          
-        ]

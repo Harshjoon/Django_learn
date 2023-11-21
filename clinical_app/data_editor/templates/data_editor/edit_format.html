@@ -2,16 +2,46 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="content-section">  
-        <form method="POST">
-            <h4>Edit Hospitals</h4>
-            {% csrf_token %}<!-- csrf token for safety -->
-            <br>
-            {{ hospital_form|crispy }}
-            <br>
-            <input type="submit" value="Submit" >
+        <form method="POST" id="edit_hospital_form" name="edit_hospital_form">
+                <h4>Edit Hospitals</h4>
+                {% csrf_token %}<!-- csrf token for safety -->
+                <br>
+                {{ edit_hospital_form|crispy }}
+                <br>
+                <input type="submit" value="Submit" name="edit_hospital_form">
         </form>
+    </div>
 
-        
+    <div class="content-section">  
+        <form method="POST" id="edit_diagnosis_form" name="edit_diagnosis_form">
+                <h4>Edit Diagnosis</h4>
+                {% csrf_token %}<!-- csrf token for safety -->
+                <br>
+                {{ edit_diagnosis_form|crispy }}
+                <br>
+                <input type="submit" value="Submit" name="edit_diagnosis_form">
+        </form>
+    </div>
 
+    <div class="content-section">  
+        <form method="POST" id="edit_surgical_procedure_form" name="edit_surgical_procedure_form">
+                <h4>Edit Surgical Procedure</h4>
+                {% csrf_token %}<!-- csrf token for safety -->
+                <br>
+                {{ edit_surgical_procedure_form|crispy }}
+                <br>
+                <input type="submit" value="Submit" name="edit_surgical_procedure_form">
+        </form>
+    </div>
+
+    <div class="content-section">  
+        <form method="POST" id="edit_instrument_form" name="edit_instrument_form">
+                <h4>Edit Instruments</h4>
+                {% csrf_token %}<!-- csrf token for safety -->
+                <br>
+                {{ edit_instrument_form|crispy }}
+                <br>
+                <input type="submit" value="Submit" name="edit_instrument_form">
+        </form>
     </div>
 {% endblock content %}
