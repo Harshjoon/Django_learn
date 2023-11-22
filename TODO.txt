@@ -1,0 +1,3 @@
+CLINICAL APP
+- Add options to search by hospital. 
+- Create html tables from database.
