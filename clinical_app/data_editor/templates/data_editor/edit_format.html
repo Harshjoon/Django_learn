@@ -44,4 +44,38 @@
                 <input type="submit" value="Submit" name="edit_instrument_form">
         </form>
     </div>
+
+    <div class="content-section">  
+        <form method="POST" id="edit_instrument_issues_form" name="edit_instrument_issues_form">
+                <h4>Edit Instruments Issues List</h4>
+                {% csrf_token %}<!-- csrf token for safety -->
+                <br>
+                {{ edit_instrument_issues_form|crispy }}
+                <br>
+                <input type="submit" value="Submit" name="edit_instrument_issues_form">
+        </form>
+    </div>
+
+    <div class="content-section">  
+        <form method="POST" id="edit_cart_issues_form" name="edit_cart_issues_form">
+                <h4>Edit Instruments Issues List</h4>
+                {% csrf_token %}<!-- csrf token for safety -->
+                <br>
+                {{ edit_cart_issues_form|crispy }}
+                <br>
+                <input type="submit" value="Submit" name="edit_cart_issues_form">
+        </form>
+    </div>
+
+    <div class="content-section">  
+        <form method="POST" id="edit_device_issues_form" name="edit_device_issues_form">
+                <h4>Edit Instruments Issues List</h4>
+                {% csrf_token %}<!-- csrf token for safety -->
+                <br>
+                {{ edit_device_issues_form|crispy }}
+                <br>
+                <input type="submit" value="Submit" name="edit_device_issues_form">
+        </form>
+    </div>
+
 {% endblock content %}

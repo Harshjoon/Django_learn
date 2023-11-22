@@ -1,6 +1,14 @@
 from django         import forms
 from django.forms   import ModelForm
-from .models        import EditHospitals, EditDiagnosis, EditSurgicalProcedure, EditInstruments
+from .models        import (
+    EditHospitals, 
+    EditDiagnosis, 
+    EditSurgicalProcedure,
+    EditInstruments,
+    EditInstrumentsIssues,
+    EditCartIssues,
+    EditDeviceIssues
+)
 
 class EditHospitalsForm(ModelForm):
     class Meta:
@@ -29,6 +37,31 @@ class EditSurgicalProcedureForm(ModelForm):
 class EditInstrumentsForm(ModelForm):
     class Meta:
         model       = EditInstruments
+        fields      = [
+            'add',
+            'remove'
+        ]
+
+class EditInstrumentsIssuesForm(ModelForm):
+    class Meta:
+        model       = EditInstrumentsIssues
+        fields      = [
+            'add',
+            'remove'
+        ]
+
+
+class EditCartIssuesForm(ModelForm):
+    class Meta:
+        model       = EditCartIssues
+        fields      = [
+            'add',
+            'remove'
+        ]
+
+class EditDeviceIssuesForm(ModelForm):
+    class Meta:
+        model       = EditDeviceIssues
         fields      = [
             'add',
             'remove'

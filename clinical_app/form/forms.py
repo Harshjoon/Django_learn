@@ -9,6 +9,13 @@ class DateInput(forms.DateInput):
 class TimeInput(forms.TimeInput):
     input_type = 'time'
 
+class hospitals_form(ModelForm):
+    class Meta:
+        model       = Post
+        fields      = [
+            'hospital_name'
+        ]
+
 class clinical_form(ModelForm):
     class Meta:
         model       = Post

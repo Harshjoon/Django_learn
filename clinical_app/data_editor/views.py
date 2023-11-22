@@ -8,13 +8,17 @@ from .forms                     import (
     EditHospitalsForm, 
     EditDiagnosisForm,
     EditSurgicalProcedureForm,
-    EditInstrumentsForm
+    EditInstrumentsForm,
+    EditCartIssuesForm,
+    EditDeviceIssuesForm,
+    EditInstrumentsIssuesForm
 )
 from form.models                import (
     Hospitals,
     Diagnosis,
     SurgicalProcedure,
-    Instruments
+    Instruments,
+    InstrumentIssues
 )
 #from form.models                import Hospitals
 from .functions                 import edit_hospitals, edit_models
@@ -39,19 +43,24 @@ def home_page(request):
         if request.method    == 'POST':
             print("request post sent.")
 
-            #form_data       = EditHospitalsForm(request.POST)
-
             models_list = [ 
                     Hospitals, 
                     Diagnosis,
                     SurgicalProcedure,
-                    Instruments 
+                    Instruments,
+                    InstrumentIssues,
+                    CartIssues,
+                    DeviceIssues, 
                 ]
+
             forms  = [
                 EditHospitalsForm(request.POST),
                 EditDiagnosisForm(request.POST),
                 EditSurgicalProcedureForm(request.POST),
-                EditInstrumentsForm(request.POST) 
+                EditInstrumentsForm(request.POST),
+                EditInstrumentsIssuesForm(request.POST),
+                EditCartIssuesForm(request.POST),
+                EditDeviceIssuesForm(request.POST)  
             ]
 
             form_names = [
@@ -59,18 +68,12 @@ def home_page(request):
                 'edit_diagnosis_form',
                 'edit_surgical_procedure_form',
                 'edit_instrument_form',
+                'edit_instrument_issues_form',
+                'edit_cart_issues_form',
+                'edit_device_issues_form'
             ]
 
-            # print("request post type name",request.POST.get("name"))
-            # print("request post type id",request.POST.get("id"))
-            # print("request post type form_type",request.POST.get("form_type"))
-            print("request post type ",request.POST.get("edit_hospital_form"))
-            print("request post type 2",request.POST.get("edit_diagnosis_form"))
-
             print([ form.is_valid() for form in forms ])
-
-            # if all([ form_.is_valid() for form_ in forms]):
-            #     edit_models(models_list, forms, request)
 
             for i,name in enumerate(form_names):
                 if request.POST.get(name) != None:
@@ -78,38 +81,16 @@ def home_page(request):
                         print("name ---------- ",name)
                         edit_models(models_list[i], forms[i], request)
 
-
-            # for i,form in enumerate(forms):
-            #     if form.is_valid():
-            #         edit_models(models_list[i], form, request)
-
             messages.success(request, f'Hospital data edited.')
 
-            # return redirect("form-home")
-
-            # #if form_data.is_valid():
-            # if any([ form.is_valid() for form in forms ]):
-                
-            #     print("forms are valid")
-
-            #     edit_models(models, forms, request)
-            #     messages.success(request, f'Hospital data edited.')
-            #     return redirect("form-home")
-
-            #     '''
-            #     edit_hospitals(Hospitals, form_data, request)
-            #     messages.success(request, f'Hospital data edited.')
-            #     return redirect("form-home")
-            #     '''
-        # form_context = {
-        #     "hospital_form": EditHospitalsForm(),
-        # }
-
         form_context = {
-            "edit_hospital_form": EditHospitalsForm(),
-            "edit_diagnosis_form": EditDiagnosisForm(),
-            "edit_surgical_procedure_form": EditSurgicalProcedureForm(),
-            "edit_instrument_form": EditInstrumentsForm(),
+            "edit_hospital_form"            : EditHospitalsForm(),
+            "edit_diagnosis_form"           : EditDiagnosisForm(),
+            "edit_surgical_procedure_form"  : EditSurgicalProcedureForm(),
+            "edit_instrument_form"          : EditInstrumentsForm(),
+            "edit_instrument_issues_form"   : EditInstrumentsIssuesForm(),
+            'edit_cart_issues_form'         : EditCartIssuesForm(),
+            'edit_device_issues_form'       : EditDeviceIssuesForm()
         }
 
         return render(request, "data_editor/edit_format.html", form_context)

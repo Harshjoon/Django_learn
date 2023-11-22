@@ -1,11 +1,28 @@
 from django.db          import models
-from form.models        import Hospitals, Diagnosis, SurgicalProcedure, Instruments
+from form.models        import (
+    Hospitals, 
+    Diagnosis, 
+    SurgicalProcedure, 
+    Instruments, 
+    InstrumentIssues,
+    CartIssues,
+    DeviceIssues,
+)
 # Create your models here.
 
 #blank=True
 class EditHospitals(models.Model):
-    add                      = models.CharField(max_length=100,null=True,blank=True)
-    remove                   = models.ForeignKey(Hospitals,on_delete=models.PROTECT,null=True,blank=True)
+    add                      = models.CharField(
+                                                    max_length=100,
+                                                    null=True,
+                                                    blank=True
+                                                )
+    remove                   = models.ForeignKey(
+                                                    Hospitals,
+                                                    on_delete=models.PROTECT,
+                                                    null=True,
+                                                    blank=True
+                                                )
 
 class EditDiagnosis(models.Model):
     add                      = models.CharField(
@@ -47,3 +64,46 @@ class EditInstruments(models.Model):
                                                             null=True,
                                                             blank=True,
                                                         )
+
+
+class EditInstrumentsIssues(models.Model):
+    add                          = models.CharField(
+                                                            max_length=100,
+                                                            null=True,
+                                                            blank=True,
+                                                            default=None
+                                                        ) 
+    remove                       = models.ForeignKey(
+                                                            InstrumentIssues,
+                                                            on_delete=models.PROTECT,
+                                                            null=True,
+                                                            blank=True,
+                                                        )    
+
+class EditCartIssues(models.Model):
+    add                          = models.CharField(
+                                                            max_length=100,
+                                                            null=True,
+                                                            blank=True,
+                                                            default=None
+                                                        ) 
+    remove                       = models.ForeignKey(
+                                                            CartIssues,
+                                                            on_delete=models.PROTECT,
+                                                            null=True,
+                                                            blank=True,
+                                                        )   
+
+class EditDeviceIssues(models.Model):
+    add                          = models.CharField(
+                                                            max_length=100,
+                                                            null=True,
+                                                            blank=True,
+                                                            default=None
+                                                        ) 
+    remove                       = models.ForeignKey(
+                                                            DeviceIssues,
+                                                            on_delete=models.PROTECT,
+                                                            null=True,
+                                                            blank=True,
+                                                        )                   

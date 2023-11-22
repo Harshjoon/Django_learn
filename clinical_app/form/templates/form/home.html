@@ -1,4 +1,5 @@
 {% extends "form/base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
 
     <!-- <div class="content-section"> -->
@@ -47,8 +48,17 @@
             <input type="text" id="patient_id" name="patient_id">
             <input type="submit" value="Submit" >
         </form>
-    </div>
+        <br> 
 
+        <label for="search_by_hospital"> Search by hospital &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+
+        <form method="POST" id="search_by_hospital" name="search_by_hospital">
+            {% csrf_token %} <!-- csrf token for safety -->
+            {{ hospital_form|crispy }}
+            <input type="submit" value="Submit" >
+        </form>
+
+    </div>
 
     <div class="content-section">
         <h4>  &nbsp; Report a Bug</h4>

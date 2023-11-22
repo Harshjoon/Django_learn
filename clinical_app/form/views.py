@@ -2,7 +2,7 @@ from django.shortcuts       import render
 from django.views.generic   import ListView
 from django.http            import HttpResponse
 from .models                import Post, BugReport
-from .forms                 import clinical_form
+from .forms                 import clinical_form, hospitals_form
 from .functions             import set_models, set_forms
 from django.contrib.auth.decorators     import login_required
 from django.contrib             import messages
@@ -92,7 +92,11 @@ def home_page(request):
                 url                 = '{}?{}'.format(base_url, query_string)
                 return redirect(url)        
 
-    return render(request, 'form/home.html')
+    context = {
+        'hospital_form': hospitals_form#.objects.all()
+    }
+
+    return render(request, 'form/home.html', context)
 
 def about_page(request):
     #return HttpResponse('<h1>Form page</h1>')
