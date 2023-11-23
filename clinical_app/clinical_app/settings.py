@@ -34,6 +34,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    "clinical_app",
     "form.apps.FormConfig",                 # added
     "users.apps.UsersConfig",               # added
     "dashboard.apps.DashboardConfig",       # added
@@ -82,12 +83,47 @@ WSGI_APPLICATION = "clinical_app.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+        'default': {
+            #'ENGINE': 'djongo',
+            'ENGINE': 'django.db.backends.djongo',
+            'NAME': 'Clinical_app',
+            'ENFORCE_SCHEMA': False,
+            'CLIENT': {
+                #'host': 'mongodb+srv://harshjoon:SSiPLSSiPL@cluster0.wswx2lx.mongodb.net/?retryWrites=true&w=majority'
+                'host': 'mongodb+srv://harshjoon:xh7KQy591C9WibyQ@cluster1.cj5zkj2.mongodb.net/?retryWrites=true&w=majority'
+            }  
+        },
+        'form': {
+            #'ENGINE': 'djongo',
+            'ENGINE': 'django.db.backends.djongo',
+            'NAME': 'form_data',
+            'ENFORCE_SCHEMA': False,
+            'CLIENT': {
+                #'host': 'mongodb+srv://harshjoon:SSiPLSSiPL@cluster0.wswx2lx.mongodb.net/?retryWrites=true&w=majority'
+                'host': 'mongodb+srv://harshjoon:xh7KQy591C9WibyQ@cluster1.cj5zkj2.mongodb.net/?retryWrites=true&w=majority'
+            }  
+        },
+        'data_editor': {
+            #'ENGINE': 'djongo',
+            'ENGINE': 'django.db.backends.djongo',
+            'NAME': 'data_editor',
+            'ENFORCE_SCHEMA': False,
+            'CLIENT': {
+                #'host': 'mongodb+srv://harshjoon:SSiPLSSiPL@cluster0.wswx2lx.mongodb.net/?retryWrites=true&w=majority'
+                'host': 'mongodb+srv://harshjoon:xh7KQy591C9WibyQ@cluster1.cj5zkj2.mongodb.net/?retryWrites=true&w=majority'
+            }  
+        }
 }
+
+#xh7KQy591C9WibyQ
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
